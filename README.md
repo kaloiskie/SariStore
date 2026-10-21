@@ -2,7 +2,7 @@
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)
 ![Fastify](https://img.shields.io/badge/Fastify-TypeScript-202020?logo=fastify&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript- strict-3178C6?logo=typescript&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![SQLite](https://img.shields.io/badge/Dev%20database-SQLite-003B57?logo=sqlite&logoColor=white)
 ![PM2](https://img.shields.io/badge/Dev%20process-PM2-2B037A?logo=pm2&logoColor=white)
 ![Status](https://img.shields.io/badge/status-prototype-yellow)
