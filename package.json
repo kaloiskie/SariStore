@@ -1,0 +1,27 @@
+{
+  "name": "saristore",
+  "private": true,
+  "scripts": {
+    "dev:web": "next dev apps/web",
+    "dev:api": "tsx apps/api/src/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "latest",
+    "better-sqlite3": "latest",
+    "fastify": "latest",
+    "lucide-react": "^1.61.0",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  },
+  "packageManager": "pnpm@10.34.5"
+}

@@ -1,0 +1,42 @@
+# SariStore Architecture Essentials
+
+- Offline-first behavior is a core requirement, not an enhancement.
+- Use Next.js, Fastify, and TypeScript as the initial implementation stack.
+- Use SQLite and PM2 for the development environment only; production persistence and process hosting require a separate approved design.
+- Bind development services to the configured Tailscale IP, never expose them by inventing a public address or changing v2 network services.
+- Keep authentication provider-independent: demo Google sign-in may be mocked, but production code must retain a replaceable OAuth/token-verification boundary.
+- Demo authentication is for local/prototype use only and must be visibly labeled; never ship demo bypass behavior as production security.
+- The landing page is public; all operational, store, and administration routes require an authenticated session and resolved store context.
+- Post-login routing is role-aware and must never assume that every authenticated user has a store or POS access.
+- Sign-out must clear client session state and cached private data from the active browser context.
+- Mobile and desktop are separate layout/design surfaces over one shared product model; do not force desktop tables onto mobile or create a second mobile-only domain.
+- Mobile checkout must optimize for one-handed touch speed; desktop management must optimize for scanning, filtering, and bulk review.
+- Desktop checkout must preserve a fast-food-counter mental model: browse products on the left, review and pay on the right.
+- Mobile checkout must be one-handed and action-focused: product grid first, persistent cart action, full-screen review/payment, and no dense management tables.
+- Mobile cart state must survive reload, validation failure, and temporary offline operation without losing entered items or payment data.
+- Visual styling may use plain CSS, CSS Modules, Tailwind, or reusable component primitives. Keep selectors/utilities component-owned, support responsive breakpoints and reduced motion, and avoid scattered inline styles or JavaScript-driven animation.
+- New visual surfaces should include purposeful CSS motion for entrance, hover, focus, or state feedback, with restrained timing and a reduced-motion fallback.
+- Code must be human-readable and maintainable: descriptive naming, focused modules, typed contracts, consistent formatting, minimal duplication, and no unexplained clever abstractions.
+- Localization must use typed shared keys and complete locale coverage. Missing translations are a verification failure, not an acceptable fallback for visible product labels.
+- Light theme tokens: deep green `#176B4D`, action green `#238B5A`, warm cream `#FFF9F0`, white surface `#FFFFFF`, charcoal text `#17211B`, and mango accent `#F4B942`.
+- Dark theme tokens: deep green-black `#101815`, main surface `#17221D`, elevated surface `#203029`, bright green `#55C98A`, light text `#F2F7F3`, muted text `#AABBB0`, and yellow accent `#F4C95D`.
+- Theme state must preserve WCAG AA contrast, visible focus rings, readable disabled states, and semantic labels/icons alongside color.
+- Desktop POS may use a subtly tinted green order-summary surface to distinguish the right column from the product area in both themes.
+- Sale creation must be idempotent and auditable.
+- Money is stored as integer centavos, never floating-point values.
+- Inventory movements are append-only in the domain layer; corrections create new movements.
+- Customer credit balances must be traceable to sales and payments.
+- Owner data is isolated by store/account authorization.
+- Role checks are explicit for staff, manager, and admin; hiding a control in the frontend is never sufficient authorization.
+- Staff cannot change prices, rewrite inventory history, manage users, or access restricted financial settings.
+- Managers own store operations; admins manage the platform and should not be treated as ordinary cashiers.
+- Admin-granted per-user permissions must be store-scoped, auditable, reversible, and evaluated together with the user’s base role.
+- Permission changes require actor, target user, permission, action, timestamp, and reason/note where applicable.
+- Settings is a dedicated, role-aware area covering store configuration, receipts, payments, backup/export, users, permissions, and security; it must not become an unstructured catch-all.
+- Settings forms must handle loading, unsaved changes, validation errors, retry, disabled saves, duplicate submissions, and destructive-action confirmation.
+- Printer actions must be decoupled from sale creation: print cancellation or failure cannot undo or duplicate a completed sale.
+- Printer configuration must be permission-aware and support preview, paper-size selection, copy count, test print, unavailable-printer messaging, retry, and skip.
+- Secrets belong in runtime environment configuration and never in source control.
+- Every destructive action requires confirmation and supports recovery where practical.
+- Verification must cover empty, zero, duplicate, large, offline, retry, slow-network, error, mobile, desktop, keyboard, and reduced-motion cases.
+
